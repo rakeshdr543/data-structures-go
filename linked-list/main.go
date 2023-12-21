@@ -19,13 +19,38 @@ func (l *linkedlist) prepend(node *node) {
 }
 
 func (l linkedlist) printList() {
-	toPrint := l.head
-	for l.linkedlist_size != 0 {
-		fmt.Printf("%d ", toPrint.data)
-		toPrint = toPrint.next
-		l.linkedlist_size--
+	cur := l.head
+	for cur != nil {
+		fmt.Printf("%d ", cur.data)
+		cur = cur.next
 	}
 	fmt.Println()
+}
+
+func (l *linkedlist) reverse() {
+	if l.linkedlist_size == 0 {
+		return
+	}
+
+	var prev *node
+	cur := l.head
+	for cur != nil {
+
+		temp := cur.next
+		cur.next = prev
+		prev = cur
+		cur = temp
+	}
+	l.head = prev
+}
+
+func (l linkedlist) middle() node {
+	slow, fast := l.head, l.head.next
+	for fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+	}
+	return *slow
 }
 
 func (l *linkedlist) deleteWithValue(value int) {
@@ -57,8 +82,11 @@ func main() {
 	mylist.prepend(&node{data: 20})
 	mylist.prepend(&node{data: 30})
 	mylist.prepend(&node{data: 40})
+	mylist.prepend(&node{data: 50})
+	mylist.prepend(&node{data: 60})
 
 	mylist.printList()
-	mylist.deleteWithValue(20)
+	mylist.reverse()
 	mylist.printList()
+	fmt.Println(mylist.middle())
 }
