@@ -18,6 +18,7 @@ func (node *Node) Insert(i int) {
 		}
 	} else if i < node.data {
 		if node.left == nil {
+
 			node.left = &Node{data: i}
 		} else {
 			node.left.Insert(i)
